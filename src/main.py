@@ -71,10 +71,17 @@ class YouTubePlayerApp(QMainWindow):
         """Load configuration from file or create default"""
         import configparser
         config = configparser.ConfigParser()
-        # Get the src directory (where this script is located)
-        src_dir = os.path.dirname(os.path.abspath(__file__))
-        # Get the project root (one level up from src)
-        project_root = os.path.dirname(src_dir)
+        
+        # Use appropriate directory based on whether running as script or packaged
+        if getattr(sys, 'frozen', False):
+            # Running as compiled executable
+            app_dir = os.path.dirname(sys.executable)
+            src_dir = app_dir
+            project_root = app_dir
+        else:
+            # Running as script
+            src_dir = os.path.dirname(os.path.abspath(__file__))
+            project_root = os.path.dirname(src_dir)
         
         config_path = os.path.join(src_dir, 'config.ini')
         
@@ -106,7 +113,12 @@ class YouTubePlayerApp(QMainWindow):
         """Save configuration to file"""
         import configparser
         config = configparser.ConfigParser()
-        current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        if getattr(sys, 'frozen', False):
+            current_dir = os.path.dirname(sys.executable)
+        else:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+        
         config_path = os.path.join(current_dir, 'config.ini')
         
         if os.path.exists(config_path):
@@ -125,7 +137,11 @@ class YouTubePlayerApp(QMainWindow):
     
     def load_history(self):
         """Load URL history from file"""
-        current_dir = os.path.dirname(os.path.abspath(__file__))
+        if getattr(sys, 'frozen', False):
+            current_dir = os.path.dirname(sys.executable)
+        else:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+        
         history_path = os.path.join(current_dir, 'history.json')
         if os.path.exists(history_path):
             try:
@@ -137,7 +153,11 @@ class YouTubePlayerApp(QMainWindow):
     
     def save_history(self):
         """Save URL history to file"""
-        current_dir = os.path.dirname(os.path.abspath(__file__))
+        if getattr(sys, 'frozen', False):
+            current_dir = os.path.dirname(sys.executable)
+        else:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+        
         history_path = os.path.join(current_dir, 'history.json')
         
         if len(self.history) > self.max_history:
@@ -308,7 +328,7 @@ class YouTubePlayerApp(QMainWindow):
             font-size: 10pt;
             font-weight: bold;
             padding: 8px 16px;
-            transition: all 0.3s;
+            
         }
         
         #primaryButton {
