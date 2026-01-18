@@ -1,105 +1,111 @@
-# YouTube Ad-Free Player
+# YouTube Adfree Player
 
-A modern, lightweight desktop application for playing YouTube videos without ads using MPV player and yt-dlp.
+A lightweight desktop application for playing YouTube videos using MPV player with a modern GUI interface.
 
 ## Screenshot
 ![Screenshot](res/screenshot.png)
 
 ## Features
 
-- 🎬 Stream YouTube videos directly without ads
-- 📋 URL history with quick access
-- 🖥️ Fullscreen playback
-- 🔄 Loop video option
-- ⚙️ Configurable paths and settings
-- 📝 Automatic logging
+- 🎥 Play YouTube videos, playlists, and live streams
+- 🖥️ Fullscreen support
+- 🔄 Loop playback option
+- 📋 Quick paste from clipboard
+- 📜 URL history tracking
+- ⚙️ Configurable settings
+- 🔄 Automatic yt-dlp updates
 
 ## Requirements
 
-- Python 3.8+
-- PyQt6
-- pyperclip
+- Python 3.7+
+- MPV player
 - yt-dlp
-- mpv (media player)
 
-## Installation
+### Python Dependencies
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/youtube-adfree-player.git
-cd youtube-adfree-player
-```
-
-2. Install Python dependencies:
-```bash
-python.exe -m pip install --upgrade pip
 pip install PyQt6 pyperclip
 ```
 
-3. Download required tools:
-   - **mpv**: Download from [mpv.io](https://mpv.io/installation/)
-   - **yt-dlp**: Download from [yt-dlp releases](https://github.com/yt-dlp/yt-dlp/releases)
+## Project Structure
 
-4. Place tools in the project root directory:
 ```
-youtube-adfree-player/
+project/
+├── src/
+│   ├── main.py
+│   ├── config.ini (auto-generated)
+│   └── history.json (auto-generated)
 ├── tools/
 │   ├── mpv.exe
 │   └── yt-dlp.exe
-├── src/
-│   └── main.py
 └── logs/
 ```
 
-5. Package the application (optional)**
+## Installation
 
-```bash
-pip install pyinstaller
-pyinstaller --onefile --icon=res/icon.ico src/main.py
-```
-
+1. Clone or download this repository
+2. Install Python dependencies:
+   ```bash
+   pip install PyQt6 pyperclip
+   ```
+3. Download [MPV player](https://mpv.io/installation/) and place `mpv.exe` in the `tools/` folder
+4. Download [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases) and place `yt-dlp.exe` in the `tools/` folder
 
 ## Usage
 
-Run the application:
+### Running from Source
+
 ```bash
 python src/main.py
 ```
 
-1. Paste or enter a YouTube URL
-2. (Optional) Enable Fullscreen or Loop Video
-3. Click **Play**
+### Building Executable
+
+Using PyInstaller:
+```bash
+pip install pyinstaller
+pyinstaller --onefile --windowed  --icon=res/icon.ico --name "YouTube Player" src/main.py  
+```
+
+Place the resulting executable alongside the `tools/` folder.
 
 ## Configuration
 
-Access **Settings** to customize:
-- MPV player path
-- yt-dlp executable path
-- Log directory location
-- Maximum history items
-- Clear history
+Settings can be configured via the Settings dialog (⚙️ button):
 
-Settings are saved to `src/config.ini`.
+- **MPV Player Path**: Location of mpv.exe
+- **YT-DLP Path**: Location of yt-dlp.exe
+- **Log Directory**: Where log files are saved
+- **Max History Items**: Number of URLs to remember (1-100)
 
-## Directory Structure
+Configuration is automatically saved to `config.ini`.
 
+## Keyboard Shortcuts
+
+- **Ctrl+P**: Play video
+- **Escape**: Stop playback
+
+## Supported URLs
+
+- Standard videos: `youtube.com/watch?v=...`
+- Short URLs: `youtu.be/...`
+- Shorts: `youtube.com/shorts/...`
+- Playlists: `youtube.com/playlist?list=...`
+- Live streams: `youtube.com/live/...`
+
+## Logging
+
+Application logs are saved to the configured log directory with timestamps:
 ```
-project-root/
-├── tools/               # External executables
-│   ├── mpv.exe
-│   └── yt-dlp.exe
-├── logs/                # Application logs
-├── src/                 # Source code
-│   ├── main.py
-│   ├── config.ini
-│   └── history.json
-└── README.md
+logs/youtube_player_YYYYMMDD_HHMMSS.log
 ```
 
 ## License
 
-MIT License - Feel free to use and modify for personal use.
+This project is provided as-is for personal use.
 
-## Contributing
+## Credits
 
-Contributions are welcome! Feel free to submit issues and pull requests.
+- [MPV Media Player](https://mpv.io/)
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+- Built with PyQt6

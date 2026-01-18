@@ -53,7 +53,7 @@ class YouTubePlayerApp(QMainWindow):
         self.history = self.load_history()
         self.setup_logging()
         
-        self.setWindowTitle("YouTube Player")
+        self.setWindowTitle("YouTube Adfree Player v1.2.0")
         self.setGeometry(100, 100, 700, 380)
         self.setMinimumSize(600, 320)
         
